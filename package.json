@@ -1,24 +1,24 @@
 {
-  "name": "testacular-chrome-launcher",
+  "name": "karma-chrome-launcher",
   "version": "0.0.1",
-  "description": "A Testacular plugin. Launcher for Chrome and Chrome Canary.",
+  "description": "A Karma plugin. Launcher for Chrome and Chrome Canary.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/testacular/testacular-chrome-launcher.git"
+    "url": "git://github.com/karma-runner/karma-chrome-launcher.git"
   },
   "keywords": [
-    "testacular-plugin",
+    "karma-plugin",
     "launcher",
     "chrome"
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
   "dependencies": {},
   "peerDependencies": {
-    "testacular": "~0.7"
+    "karma": "~0.9"
   },
   "license": "MIT"
 }
