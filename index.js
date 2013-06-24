@@ -1,5 +1,7 @@
-var ChromeBrowser = function(baseBrowserDecorator) {
+var ChromeBrowser = function(baseBrowserDecorator, args) {
   baseBrowserDecorator(this);
+
+  var flags = args.flags || [];
 
   this._getOptions = function(url) {
     // Chrome CLI options
@@ -9,9 +11,8 @@ var ChromeBrowser = function(baseBrowserDecorator) {
       '--no-default-browser-check',
       '--no-first-run',
       '--disable-default-apps',
-      '--start-maximized',
-      url
-    ];
+      '--start-maximized'
+    ].concat(flags, [url]);
   };
 };
 
@@ -26,11 +27,11 @@ ChromeBrowser.prototype = {
   ENV_CMD: 'CHROME_BIN'
 };
 
-ChromeBrowser.$inject = ['baseBrowserDecorator'];
+ChromeBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
 
-var ChromeCanaryBrowser = function(baseBrowserDecorator) {
-  ChromeBrowser.call(this, baseBrowserDecorator);
+var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
+  ChromeBrowser.call(this, baseBrowserDecorator, args);
 
   var parentOptions = this._getOptions;
   this._getOptions = function(url) {
@@ -50,7 +51,7 @@ ChromeCanaryBrowser.prototype = {
   ENV_CMD: 'CHROME_CANARY_BIN'
 };
 
-ChromeCanaryBrowser.$inject = ['baseBrowserDecorator'];
+ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
 
 // PUBLISH DI MODULE
