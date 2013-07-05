@@ -4,16 +4,26 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkgFile: 'package.json'
 
+    'npm-contributors':
+      options:
+        commitMessage: 'chore: update contributors'
+
     bump:
       options:
         commitMessage: 'chore: release v%VERSION%'
         pushTo: 'upstream'
 
-  grunt.loadNpmTasks 'grunt-bump'
-  grunt.loadNpmTasks 'grunt-npm'
+    'auto-release':
+      options:
+        checkTravisBuild: false
 
-  grunt.registerTask 'release', 'Build, bump and publish to NPM.', (type) ->
+  grunt.loadNpmTasks 'grunt-npm'
+  grunt.loadNpmTasks 'grunt-bump'
+  grunt.loadNpmTasks 'grunt-auto-release'
+
+  grunt.registerTask 'release', 'Bump the version and publish to NPM.', (type) ->
     grunt.task.run [
-      "bump:#{type||'patch'}"
+      'npm-contributors',
+      "bump:#{type||'patch'}",
       'npm-publish'
     ]
