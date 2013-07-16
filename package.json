@@ -12,7 +12,7 @@
   },
   "keywords": [
     "karma-plugin",
-    "launcher",
+    "karma-launcher",
     "chrome"
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
