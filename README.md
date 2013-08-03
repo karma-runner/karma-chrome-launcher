@@ -10,8 +10,8 @@ The easiest way is to keep `karma-chrome-launcher` as a devDependency in your `p
 ```json
 {
   "devDependencies": {
-    "karma": "~0.9",
-    "karma-chrome-launcher": "~0.0.1"
+    "karma": "~0.10",
+    "karma-chrome-launcher": "~0.1"
   }
 }
 ```
