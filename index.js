@@ -22,7 +22,7 @@ ChromeBrowser.prototype = {
   DEFAULT_CMD: {
     linux: 'google-chrome',
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    win32: process.env.LOCALAPPDATA + '\\Google\\Chrome\\Application\\chrome.exe'
+    win32: windowsChromePath('\\Google\\Chrome\\Application\\chrome.exe')
   },
   ENV_CMD: 'CHROME_BIN'
 };
@@ -46,13 +46,23 @@ ChromeCanaryBrowser.prototype = {
   DEFAULT_CMD: {
     linux: 'google-chrome-canary',
     darwin: '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
-    win32: process.env.LOCALAPPDATA + '\\Google\\Chrome SxS\\Application\\chrome.exe'
+    win32: windowsChromePath('\\Google\\Chrome SxS\\Application\\chrome.exe')
   },
   ENV_CMD: 'CHROME_CANARY_BIN'
 };
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
+function windowsChromePath(chromeExe) {
+	var os = require('os'),
+	    fs = require('fs');
+	var globalInstall = os.arch()==='x64' ? process.env['ProgramFiles(x86)'] : process.env.ProgramFiles;
+	
+	if(fs.existsSync(globalInstall + chromeExe))
+		return globalInstall + chromeExe;
+	else
+		return process.env.LOCALAPPDATA + chromeExe;
+}
 
 // PUBLISH DI MODULE
 module.exports = {
