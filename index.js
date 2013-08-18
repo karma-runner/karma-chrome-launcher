@@ -1,3 +1,6 @@
+var os = require('os'),
+    fs = require('fs');
+
 var ChromeBrowser = function(baseBrowserDecorator, args) {
   baseBrowserDecorator(this);
 
@@ -53,9 +56,10 @@ ChromeCanaryBrowser.prototype = {
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
-function windowsChromePath(chromeExe) {
-	var os = require('os'),
-	    fs = require('fs');
+var windowsChromePath = function(chromeExe) {
+	if(os.platform()!=='win32')
+		return '';
+		
 	var globalInstall = os.arch()==='x64' ? process.env['ProgramFiles(x86)'] : process.env.ProgramFiles;
 	
 	if(fs.existsSync(globalInstall + chromeExe))
