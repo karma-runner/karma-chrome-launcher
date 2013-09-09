@@ -1,5 +1,4 @@
-var os = require('os'),
-    fs = require('fs');
+var fs = require('fs');
 
 var ChromeBrowser = function(baseBrowserDecorator, args) {
   baseBrowserDecorator(this);
@@ -19,13 +18,33 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
   };
 };
 
+// Return location of chrome.exe file for a given Chrome directory (available: "Chrome", "Chrome SxS").
+function getChromeExe(chromeDirName) {
+  if (process.platform !== 'win32') {
+    return null;
+  }
+  var windowsChromeDirectory, i, prefix;
+  var suffix = '\\Google\\'+ chromeDirName + '\\Application\\chrome.exe';
+  var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']];
+
+  for (i = 0; i < prefixes.length; i++) {
+    prefix = prefixes[i];
+    if (fs.existsSync(prefix + suffix)) {
+      windowsChromeDirectory = prefix + suffix;
+      break;
+    }
+  }
+
+  return windowsChromeDirectory;
+}
+
 ChromeBrowser.prototype = {
   name: 'Chrome',
 
   DEFAULT_CMD: {
     linux: 'google-chrome',
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    win32: windowsChromePath('\\Google\\Chrome\\Application\\chrome.exe')
+    win32: getChromeExe('Chrome')
   },
   ENV_CMD: 'CHROME_BIN'
 };
@@ -49,26 +68,13 @@ ChromeCanaryBrowser.prototype = {
   DEFAULT_CMD: {
     linux: 'google-chrome-canary',
     darwin: '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
-    win32: windowsChromePath('\\Google\\Chrome SxS\\Application\\chrome.exe')
+    win32: getChromeExe('Chrome SxS')
   },
   ENV_CMD: 'CHROME_CANARY_BIN'
 };
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
-var windowsChromePath = function(chromeExe) {
-	if (os.platform() !== 'win32') {
-		return '';
-  }
-
-	var globalInstall = os.arch() === 'x64' ? process.env['ProgramFiles(x86)'] : process.env.ProgramFiles;
-
-	if (fs.existsSync(globalInstall + chromeExe)) {
-		return globalInstall + chromeExe;
-  }
-
-	return process.env.LOCALAPPDATA + chromeExe;
-}
 
 // PUBLISH DI MODULE
 module.exports = {
