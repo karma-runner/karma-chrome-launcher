@@ -28,6 +28,8 @@
     "grunt-auto-release": "~0.0.2"
   },
   "contributors": [
-    "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>"
+    "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
+    "Joe Doyle <valdain@gmail.com>",
+    "Michał Gołębiowski <m.goleb@gmail.com>"
   ]
 }
