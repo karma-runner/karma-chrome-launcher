@@ -76,9 +76,30 @@ ChromeCanaryBrowser.prototype = {
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
+var DartiumBrowser = function(baseBrowserDecorator, args) {
+    ChromeBrowser.call(this, baseBrowserDecorator, args);
+
+    var checkedFlag = '--checked';
+    var dartFlags = process.env['DART_FLAGS'] || '';
+    var flags = dartFlags.split(' ')
+    if(flags.indexOf(checkedFlag) == -1) {
+        flags.push(checkedFlag);
+        process.env['DART_FLAGS'] = flags.join(' ');
+    }
+};
+
+DartiumBrowser.prototype = {
+    name: 'Dartium',
+
+    ENV_CMD: 'DARTIUM_BIN'
+};
+
+DartiumBrowser.$inject = ['baseBrowserDecorator', 'args'];
+
 
 // PUBLISH DI MODULE
 module.exports = {
   'launcher:Chrome': ['type', ChromeBrowser],
-  'launcher:ChromeCanary': ['type', ChromeCanaryBrowser]
+  'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
+  'launcher:Dartium': ['type', DartiumBrowser]
 };
