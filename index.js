@@ -13,8 +13,7 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
       '--no-default-browser-check',
       '--no-first-run',
       '--disable-default-apps',
-      '--disable-popup-blocking',
-      '--start-maximized'
+      '--disable-popup-blocking'
     ].concat(flags, [url]);
   };
 };
