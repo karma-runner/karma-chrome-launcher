@@ -14,7 +14,8 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
       '--no-first-run',
       '--disable-default-apps',
       '--disable-popup-blocking',
-      '--start-maximized'
+      '--start-maximized',
+      '--no-proxy-server'
     ].concat(flags, [url]);
   };
 };
