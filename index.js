@@ -43,7 +43,7 @@ ChromeBrowser.prototype = {
   name: 'Chrome',
 
   DEFAULT_CMD: {
-    linux: 'google-chrome',
+    linux: 'chromium-browser',
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     win32: getChromeExe('Chrome')
   },
