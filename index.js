@@ -90,7 +90,7 @@ var DartiumBrowser = function(baseBrowserDecorator, args) {
 
 DartiumBrowser.prototype = {
     name: 'Dartium',
-
+    DEFAULT_CMD: {},
     ENV_CMD: 'DARTIUM_BIN'
 };
 
