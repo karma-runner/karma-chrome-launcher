@@ -4,7 +4,7 @@
   "description": "A Karma plugin. Launcher for Chrome and Chrome Canary.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jasmine-node test"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
     "grunt": "~0.4.1",
     "grunt-npm": "~0.0.2",
     "grunt-bump": "~0.0.6",
-    "grunt-auto-release": "~0.0.2"
+    "grunt-auto-release": "~0.0.2",
+    "jasmine-node": "~1.14.5"
   },
   "contributors": [
     "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
