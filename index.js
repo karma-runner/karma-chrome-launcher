@@ -8,6 +8,10 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
   this._getOptions = function(url) {
     // Chrome CLI options
     // http://peter.sh/experiments/chromium-command-line-switches/
+    flags.forEach(function(flag, i) {
+      if(isJSFlags(flag)) flags[i] = sanitizeJSFlags(flag);
+    });
+
     return [
       '--user-data-dir=' + this._tempDir,
       '--no-default-browser-check',
@@ -18,6 +22,19 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
     ].concat(flags, [url]);
   };
 };
+
+function isJSFlags (flag) {
+  return flag.indexOf('--js-flags=') === 0;
+}
+
+function sanitizeJSFlags (flag) {
+  var test = /--js-flags=(['"])/.exec(flag);
+  if (!test) return flag;
+  var escapeChar = test[1];
+  var endExp = new RegExp(escapeChar + '$');
+  var startExp = new RegExp('--js-flags=' + escapeChar);
+  return flag.replace(startExp, '--js-flags=').replace(endExp, '');
+}
 
 // Return location of chrome.exe file for a given Chrome directory (available: "Chrome", "Chrome SxS").
 function getChromeExe(chromeDirName) {
@@ -58,10 +75,24 @@ var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
 
   var parentOptions = this._getOptions;
   this._getOptions = function(url) {
-    // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
-    return parentOptions.call(this, url).concat(['--js-flags="--nocrankshaft --noopt"']);
+    return canaryGetOptions.call(this, url, args, parentOptions);
   };
 };
+
+function canaryGetOptions (url, args, parent) {
+  // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
+  var flags = args.flags || [];
+  var augmentedFlags;
+  var customFlags = '--nocrankshaft --noopt';
+
+  flags.forEach(function(flag, i) {
+    if (isJSFlags(flag)) {
+      augmentedFlags = sanitizeJSFlags(flag) + ' ' + customFlags;
+    }
+  });
+
+  return parent.call(this, url).concat([augmentedFlags || '--js-flags=' + customFlags]);
+}
 
 ChromeCanaryBrowser.prototype = {
   name: 'ChromeCanary',
@@ -103,3 +134,9 @@ module.exports = {
   'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
   'launcher:Dartium': ['type', DartiumBrowser]
 };
+
+module.exports.test = {
+  isJSFlags: isJSFlags,
+  sanitizeJSFlags: sanitizeJSFlags,
+  canaryGetOptions: canaryGetOptions
+}
