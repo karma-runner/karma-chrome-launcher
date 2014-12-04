@@ -37,5 +37,7 @@
     "Marko Vuksanovic <markovuksanovic@gmail.com>",
     "Michał Gołębiowski <m.goleb@gmail.com>",
     "Parashuram N <code@r.nparashuram.com>"
-  ]
+  ],
+  "readme": "\n# karma-chrome-launcher\n\nLauncher for Google Chrome and Google Chrome Canary\n",
+  "readmeFilename": "README.md"
 }
