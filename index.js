@@ -71,7 +71,7 @@ ChromeBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
 
 var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
-  ChromeBrowser.call(this, baseBrowserDecorator, args);
+  ChromeBrowser.apply(this, arguments);
 
   var parentOptions = this._getOptions;
   this._getOptions = function(url) {
@@ -107,8 +107,8 @@ ChromeCanaryBrowser.prototype = {
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
-var DartiumBrowser = function(baseBrowserDecorator, args) {
-    ChromeBrowser.call(this, baseBrowserDecorator, args);
+var DartiumBrowser = function() {
+    ChromeBrowser.apply(this, arguments);
 
     var checkedFlag = '--checked';
     var dartFlags = process.env['DART_FLAGS'] || '';
