@@ -16,7 +16,9 @@
     "chrome"
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
-  "dependencies": {},
+  "dependencies": {
+    "which": "^1.0.9"
+  },
   "peerDependencies": {
     "karma": ">=0.9.3"
   },
