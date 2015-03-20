@@ -1,4 +1,5 @@
 var fs = require('fs'),
+  path = require('path'),
   which = require('which');
 
 var ChromeBrowser = function(baseBrowserDecorator, args) {
@@ -49,7 +50,7 @@ function getChromeExe(chromeDirName) {
 
   for (i = 0; i < prefixes.length; i++) {
     prefix = prefixes[i];
-    if (fs.existsSync(prefix + suffix)) {
+    if (fs.realpathSync(prefix + suffix)) {
       windowsChromeDirectory = prefix + suffix;
       break;
     }
@@ -75,6 +76,19 @@ function getBin(commands) {
   return bin;
 }
 
+function getChromeDarwin(defaultPath) {
+  if (process.platform !== 'darwin') {
+    return null;
+  }
+
+  var homePath = path.join(process.env['HOME'], defaultPath);
+  if (fs.realpathSync(homePath)) {
+    return homePath;
+  }
+
+  return defaultPath;
+}
+
 ChromeBrowser.prototype = {
   name: 'Chrome',
 
@@ -82,7 +96,7 @@ ChromeBrowser.prototype = {
     // Try chromium-browser before chromium to avoid conflict with the legacy
     // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
     linux: getBin(['chromium-browser', 'chromium', 'google-chrome', 'google-chrome-stable']),
-    darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    darwin: getChromeDarwin('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
     win32: getChromeExe('Chrome')
   },
   ENV_CMD: 'CHROME_BIN'
@@ -120,7 +134,7 @@ ChromeCanaryBrowser.prototype = {
 
   DEFAULT_CMD: {
     linux: 'google-chrome-canary',
-    darwin: '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
+    darwin: getChromeDarwin('/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'),
     win32: getChromeExe('Chrome SxS')
   },
   ENV_CMD: 'CHROME_CANARY_BIN'
