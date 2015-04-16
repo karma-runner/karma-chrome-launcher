@@ -1,6 +1,6 @@
 {
   "name": "karma-chrome-launcher",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A Karma plugin. Launcher for Chrome and Chrome Canary.",
   "main": "index.js",
   "scripts": {
