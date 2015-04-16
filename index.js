@@ -1,4 +1,5 @@
-var fs = require('fs');
+var fs = require('fs'),
+  which = require('which');
 
 var ChromeBrowser = function(baseBrowserDecorator, args) {
   baseBrowserDecorator(this);
@@ -38,6 +39,7 @@ function sanitizeJSFlags (flag) {
 
 // Return location of chrome.exe file for a given Chrome directory (available: "Chrome", "Chrome SxS").
 function getChromeExe(chromeDirName) {
+  // Only run these checks on win32
   if (process.platform !== 'win32') {
     return null;
   }
@@ -56,11 +58,30 @@ function getChromeExe(chromeDirName) {
   return windowsChromeDirectory;
 }
 
+function getBin(commands) {
+  // Don't run these checks on win32
+  if (process.platform !== 'linux') {
+    return null;
+  }
+  var bin, i;
+  for (i = 0; i < commands.length; i++) {
+    try {
+      if (which.sync(commands[i])) {
+        bin = commands[i];
+        break;
+      }
+    } catch (e) {}
+  }
+  return bin;
+}
+
 ChromeBrowser.prototype = {
   name: 'Chrome',
 
   DEFAULT_CMD: {
-    linux: 'google-chrome',
+    // Try chromium-browser before chromium to avoid conflict with the legacy
+    // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
+    linux: getBin(['chromium-browser', 'chromium', 'google-chrome', 'google-chrome-stable']),
     darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     win32: getChromeExe('Chrome')
   },
