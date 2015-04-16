@@ -31,11 +31,11 @@
     "jasmine-node": "~1.14.5"
   },
   "contributors": [
+    "Mark Ethan Trostler <mark@zzo.com>",
     "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
     "Aymeric Beaumet <aymeric@beaumet.me>",
-    "Mark Ethan Trostler <mark@zzo.com>",
-    "Joe Doyle <valdain@gmail.com>",
     "Jeff Cross <middlefloor@gmail.com>",
+    "Joe Doyle <valdain@gmail.com>",
     "Mark Trostler <mark@zzo.com>",
     "Marko Vuksanovic <markovuksanovic@gmail.com>",
     "Michał Gołębiowski <m.goleb@gmail.com>",
