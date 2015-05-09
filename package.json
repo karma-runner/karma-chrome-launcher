@@ -17,9 +17,6 @@
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
   "dependencies": {
-    "which": "^1.0.9"
-  },
-  "dependencies": {
     "karma": ">=0.9.3"
   },
   "license": "MIT",
@@ -33,14 +30,15 @@
   "contributors": [
     "Mark Ethan Trostler <mark@zzo.com>",
     "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
-    "Aymeric Beaumet <aymeric@beaumet.me>",
-    "Jeff Cross <middlefloor@gmail.com>",
-    "Joe Doyle <valdain@gmail.com>",
     "Mark Trostler <mark@zzo.com>",
+    "Aymeric Beaumet <aymeric@beaumet.me>",
+    "Julien Sanchez <julien.sanchez@lim.eu>",
+    "Jeff Cross <middlefloor@gmail.com>",
     "Marko Vuksanovic <markovuksanovic@gmail.com>",
     "Michał Gołębiowski <m.goleb@gmail.com>",
+    "Michał Gołębiowski <m.goleb@gmail.com>",
     "Parashuram N <code@r.nparashuram.com>",
     "Timo Tijhof <krinklemail@gmail.com>",
-    "Julien Sanchez <julien.sanchez@lim.eu>"
+    "Joe Doyle <valdain@gmail.com>"
   ]
 }
