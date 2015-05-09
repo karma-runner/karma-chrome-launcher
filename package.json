@@ -17,6 +17,7 @@
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
   "dependencies": {
+    "which": "^1.0.9",
     "karma": ">=0.9.3"
   },
   "license": "MIT",
