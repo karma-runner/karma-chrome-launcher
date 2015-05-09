@@ -19,7 +19,7 @@
   "dependencies": {
     "which": "^1.0.9"
   },
-  "peerDependencies": {
+  "dependencies": {
     "karma": ">=0.9.3"
   },
   "license": "MIT",
