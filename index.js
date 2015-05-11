@@ -131,12 +131,18 @@ ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
 var DartiumBrowser = function() {
     ChromeBrowser.apply(this, arguments);
 
-    var checkedFlag = '--checked';
-    var dartFlags = process.env['DART_FLAGS'] || '';
-    var flags = dartFlags.split(' ')
-    if(flags.indexOf(checkedFlag) == -1) {
-        flags.push(checkedFlag);
-        process.env['DART_FLAGS'] = flags.join(' ');
+    if (args.checkedMode !== false) {
+        addCheckedModeFlag();
+    }
+
+    function addCheckedModeFlag() {
+        var checkedFlag = '--checked';
+        var dartFlags = process.env['DART_FLAGS'] || '';
+        var flags = dartFlags.split(' ');
+        if (flags.indexOf(checkedFlag) == -1) {
+          flags.push(checkedFlag);
+          process.env['DART_FLAGS'] = flags.join(' ');
+        }
     }
 };
 
