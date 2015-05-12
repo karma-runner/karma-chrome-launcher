@@ -29,8 +29,8 @@
   },
   "contributors": [
     "Mark Ethan Trostler <mark@zzo.com>",
-    "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
     "Mark Trostler <mark@zzo.com>",
+    "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
     "Aymeric Beaumet <aymeric@beaumet.me>",
     "Julien Sanchez <julien.sanchez@lim.eu>",
     "Jeff Cross <middlefloor@gmail.com>",
@@ -39,6 +39,7 @@
     "Michał Gołębiowski <m.goleb@gmail.com>",
     "Parashuram N <code@r.nparashuram.com>",
     "Timo Tijhof <krinklemail@gmail.com>",
-    "Joe Doyle <valdain@gmail.com>"
+    "Joe Doyle <valdain@gmail.com>",
+    "Filipe Guerra <alias.mac@gmail.com>"
   ]
 }
