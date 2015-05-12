@@ -2,6 +2,21 @@ var fs = require('fs'),
   path = require('path'),
   which = require('which');
 
+function isJSFlags(flag) {
+  return flag.indexOf('--js-flags=') === 0;
+}
+
+function sanitizeJSFlags(flag) {
+  var test = /--js-flags=(['"])/.exec(flag);
+  if (!test) {
+    return flag;
+  }
+  var escapeChar = test[1];
+  var endExp = new RegExp(escapeChar + '$');
+  var startExp = new RegExp('--js-flags=' + escapeChar);
+  return flag.replace(startExp, '--js-flags=').replace(endExp, '');
+}
+
 var ChromeBrowser = function(baseBrowserDecorator, args) {
   baseBrowserDecorator(this);
 
@@ -11,7 +26,9 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
     // Chrome CLI options
     // http://peter.sh/experiments/chromium-command-line-switches/
     flags.forEach(function(flag, i) {
-      if(isJSFlags(flag)) flags[i] = sanitizeJSFlags(flag);
+      if (isJSFlags(flag)) {
+        flags[i] = sanitizeJSFlags(flag);
+      }
     });
 
     return [
@@ -25,19 +42,6 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
   };
 };
 
-function isJSFlags (flag) {
-  return flag.indexOf('--js-flags=') === 0;
-}
-
-function sanitizeJSFlags (flag) {
-  var test = /--js-flags=(['"])/.exec(flag);
-  if (!test) return flag;
-  var escapeChar = test[1];
-  var endExp = new RegExp(escapeChar + '$');
-  var startExp = new RegExp('--js-flags=' + escapeChar);
-  return flag.replace(startExp, '--js-flags=').replace(endExp, '');
-}
-
 // Return location of chrome.exe file for a given Chrome directory (available: "Chrome", "Chrome SxS").
 function getChromeExe(chromeDirName) {
   // Only run these checks on win32
@@ -45,7 +49,7 @@ function getChromeExe(chromeDirName) {
     return null;
   }
   var windowsChromeDirectory, i, prefix;
-  var suffix = '\\Google\\'+ chromeDirName + '\\Application\\chrome.exe';
+  var suffix = '\\Google\\' + chromeDirName + '\\Application\\chrome.exe';
   var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']];
 
   for (i = 0; i < prefixes.length; i++) {
@@ -81,7 +85,7 @@ function getChromeDarwin(defaultPath) {
     return null;
   }
 
-  var homePath = path.join(process.env['HOME'], defaultPath);
+  var homePath = path.join(process.env.HOME, defaultPath);
   if (fs.realpathSync(homePath)) {
     return homePath;
   }
@@ -104,6 +108,20 @@ ChromeBrowser.prototype = {
 
 ChromeBrowser.$inject = ['baseBrowserDecorator', 'args'];
 
+function canaryGetOptions(url, args, parent) {
+  // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
+  var flags = args.flags || [];
+  var augmentedFlags;
+  var customFlags = '--nocrankshaft --noopt';
+
+  flags.forEach(function(flag) {
+    if (isJSFlags(flag)) {
+      augmentedFlags = sanitizeJSFlags(flag) + ' ' + customFlags;
+    }
+  });
+
+  return parent.call(this, url).concat([augmentedFlags || '--js-flags=' + customFlags]);
+}
 
 var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
   ChromeBrowser.apply(this, arguments);
@@ -113,21 +131,6 @@ var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
     return canaryGetOptions.call(this, url, args, parentOptions);
   };
 };
-
-function canaryGetOptions (url, args, parent) {
-  // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
-  var flags = args.flags || [];
-  var augmentedFlags;
-  var customFlags = '--nocrankshaft --noopt';
-
-  flags.forEach(function(flag, i) {
-    if (isJSFlags(flag)) {
-      augmentedFlags = sanitizeJSFlags(flag) + ' ' + customFlags;
-    }
-  });
-
-  return parent.call(this, url).concat([augmentedFlags || '--js-flags=' + customFlags]);
-}
 
 ChromeCanaryBrowser.prototype = {
   name: 'ChromeCanary',
@@ -146,11 +149,11 @@ var DartiumBrowser = function() {
     ChromeBrowser.apply(this, arguments);
 
     var checkedFlag = '--checked';
-    var dartFlags = process.env['DART_FLAGS'] || '';
-    var flags = dartFlags.split(' ')
-    if(flags.indexOf(checkedFlag) == -1) {
+    var dartFlags = process.env.DART_FLAGS || '';
+    var flags = dartFlags.split(' ');
+    if (flags.indexOf(checkedFlag) === -1) {
         flags.push(checkedFlag);
-        process.env['DART_FLAGS'] = flags.join(' ');
+        process.env.DART_FLAGS = flags.join(' ');
     }
 };
 
@@ -161,7 +164,6 @@ DartiumBrowser.prototype = {
 };
 
 DartiumBrowser.$inject = ['baseBrowserDecorator', 'args'];
-
 
 // PUBLISH DI MODULE
 module.exports = {
@@ -174,4 +176,4 @@ module.exports.test = {
   isJSFlags: isJSFlags,
   sanitizeJSFlags: sanitizeJSFlags,
   canaryGetOptions: canaryGetOptions
-}
+};
