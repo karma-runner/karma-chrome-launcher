@@ -54,7 +54,7 @@ function getChromeExe(chromeDirName) {
 
   for (i = 0; i < prefixes.length; i++) {
     prefix = prefixes[i];
-    if (fs.realpathSync(prefix + suffix)) {
+    if (fs.existsSync(prefix + suffix)) {
       windowsChromeDirectory = prefix + suffix;
       break;
     }
@@ -86,7 +86,7 @@ function getChromeDarwin(defaultPath) {
   }
 
   var homePath = path.join(process.env.HOME, defaultPath);
-  if (fs.realpathSync(homePath)) {
+  if (fs.existsSync(homePath)) {
     return homePath;
   }
 
