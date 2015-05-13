@@ -54,10 +54,11 @@ function getChromeExe(chromeDirName) {
 
   for (i = 0; i < prefixes.length; i++) {
     prefix = prefixes[i];
-    if (fs.realpathSync(prefix + suffix)) {
-      windowsChromeDirectory = prefix + suffix;
-      break;
-    }
+    try {
+      windowsChromeDirectory = path.join(prefix, suffix);
+      fs.accessSync(windowsChromeDirectory);
+      return windowsChromeDirectory;
+    } catch (e) {}
   }
 
   return windowsChromeDirectory;
@@ -85,12 +86,13 @@ function getChromeDarwin(defaultPath) {
     return null;
   }
 
-  var homePath = path.join(process.env.HOME, defaultPath);
-  if (fs.realpathSync(homePath)) {
+  try {
+    var homePath = path.join(process.env.HOME, defaultPath);
+    fs.accessSync(homePath);
     return homePath;
+  } catch (e) {
+    return defaultPath;
   }
-
-  return defaultPath;
 }
 
 ChromeBrowser.prototype = {
