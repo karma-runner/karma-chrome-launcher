@@ -85,10 +85,12 @@ function getChromeDarwin(defaultPath) {
     return null;
   }
 
-  var homePath = path.join(process.env.HOME, defaultPath);
-  if (fs.realpathSync(homePath)) {
-    return homePath;
-  }
+  try {
+    var homePath = path.join(process.env.HOME, defaultPath);
+    if (fs.realpathSync(homePath)) {
+      return homePath;
+    }
+  } catch (e) {}
 
   return defaultPath;
 }
