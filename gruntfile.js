@@ -28,11 +28,20 @@ module.exports = function (grunt) {
         ]
       }
     },
+    karma: {
+      options: {
+        singleRun: true
+      },
+      simple: {
+        configFile: 'examples/simple/karma.conf.js'
+      }
+    },
     eslint: {
       target: [
         'index.js',
         'gruntfile.js',
-        'test/*.js'
+        'test/*.js',
+        'examples/**/*.js'
       ]
     }
   })

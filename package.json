@@ -29,10 +29,14 @@
     "grunt-bump": "^0.3.1",
     "grunt-conventional-changelog": "^1.2.2",
     "grunt-eslint": "^15.0.0",
+    "grunt-karma": "^0.11.1",
     "grunt-npm": "^0.0.2",
     "grunt-simple-mocha": "^0.4.0",
     "jasmine-node": "^1.14.5",
+    "karma": "^0.12.36",
+    "karma-mocha": "^0.2.0",
     "load-grunt-tasks": "^3.2.0",
+    "mocha": "^2.2.5",
     "sinon": "^1.15.3"
   },
   "contributors": [
