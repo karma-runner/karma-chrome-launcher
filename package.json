@@ -17,6 +17,7 @@
   ],
   "author": "Vojta Jina <vojta.jina@gmail.com>",
   "dependencies": {
+    "fs-access": "^1.0.0",
     "which": "^1.0.9"
   },
   "license": "MIT",
