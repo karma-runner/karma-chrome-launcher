@@ -1,3 +1,12 @@
+<a name"0.2.0"></a>
+## 0.2.0 (2015-06-23)
+
+
+#### Bug Fixes
+
+* Use fs-access shim for file detection. ([6355ca88](https://github.com/karma-runner/karma-chrome-launcher/commit/6355ca88), closes [#53](https://github.com/karma-runner/karma-chrome-launcher/issues/53))
+
+
 <a name"0.1.9"></a>
 ### 0.1.9 (2015-06-23)
 
