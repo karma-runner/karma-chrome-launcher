@@ -4,7 +4,7 @@
   "description": "A Karma plugin. Launcher for Chrome and Chrome Canary.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
