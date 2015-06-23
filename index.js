@@ -1,35 +1,35 @@
-var fs = require('fs'),
-  path = require('path'),
-  which = require('which');
+var fs = require('fs')
+var path = require('path')
+var which = require('which')
 
-function isJSFlags(flag) {
-  return flag.indexOf('--js-flags=') === 0;
+function isJSFlags (flag) {
+  return flag.indexOf('--js-flags=') === 0
 }
 
-function sanitizeJSFlags(flag) {
-  var test = /--js-flags=(['"])/.exec(flag);
+function sanitizeJSFlags (flag) {
+  var test = /--js-flags=(['"])/.exec(flag)
   if (!test) {
-    return flag;
+    return flag
   }
-  var escapeChar = test[1];
-  var endExp = new RegExp(escapeChar + '$');
-  var startExp = new RegExp('--js-flags=' + escapeChar);
-  return flag.replace(startExp, '--js-flags=').replace(endExp, '');
+  var escapeChar = test[1]
+  var endExp = new RegExp(escapeChar + '$')
+  var startExp = new RegExp('--js-flags=' + escapeChar)
+  return flag.replace(startExp, '--js-flags=').replace(endExp, '')
 }
 
-var ChromeBrowser = function(baseBrowserDecorator, args) {
-  baseBrowserDecorator(this);
+var ChromeBrowser = function (baseBrowserDecorator, args) {
+  baseBrowserDecorator(this)
 
-  var flags = args.flags || [];
+  var flags = args.flags || []
 
-  this._getOptions = function(url) {
+  this._getOptions = function (url) {
     // Chrome CLI options
     // http://peter.sh/experiments/chromium-command-line-switches/
-    flags.forEach(function(flag, i) {
+    flags.forEach(function (flag, i) {
       if (isJSFlags(flag)) {
-        flags[i] = sanitizeJSFlags(flag);
+        flags[i] = sanitizeJSFlags(flag)
       }
-    });
+    })
 
     return [
       '--user-data-dir=' + this._tempDir,
@@ -38,60 +38,60 @@ var ChromeBrowser = function(baseBrowserDecorator, args) {
       '--disable-default-apps',
       '--disable-popup-blocking',
       '--disable-translate'
-    ].concat(flags, [url]);
-  };
-};
+    ].concat(flags, [url])
+  }
+}
 
 // Return location of chrome.exe file for a given Chrome directory (available: "Chrome", "Chrome SxS").
-function getChromeExe(chromeDirName) {
+function getChromeExe (chromeDirName) {
   // Only run these checks on win32
   if (process.platform !== 'win32') {
-    return null;
+    return null
   }
-  var windowsChromeDirectory, i, prefix;
-  var suffix = '\\Google\\' + chromeDirName + '\\Application\\chrome.exe';
-  var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']];
+  var windowsChromeDirectory, i, prefix
+  var suffix = '\\Google\\' + chromeDirName + '\\Application\\chrome.exe'
+  var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']]
 
   for (i = 0; i < prefixes.length; i++) {
-    prefix = prefixes[i];
+    prefix = prefixes[i]
     try {
-      windowsChromeDirectory = path.join(prefix, suffix);
-      fs.accessSync(windowsChromeDirectory);
-      return windowsChromeDirectory;
+      windowsChromeDirectory = path.join(prefix, suffix)
+      fs.accessSync(windowsChromeDirectory)
+      return windowsChromeDirectory
     } catch (e) {}
   }
 
-  return windowsChromeDirectory;
+  return windowsChromeDirectory
 }
 
-function getBin(commands) {
+function getBin (commands) {
   // Don't run these checks on win32
   if (process.platform !== 'linux') {
-    return null;
+    return null
   }
-  var bin, i;
+  var bin, i
   for (i = 0; i < commands.length; i++) {
     try {
       if (which.sync(commands[i])) {
-        bin = commands[i];
-        break;
+        bin = commands[i]
+        break
       }
     } catch (e) {}
   }
-  return bin;
+  return bin
 }
 
-function getChromeDarwin(defaultPath) {
+function getChromeDarwin (defaultPath) {
   if (process.platform !== 'darwin') {
-    return null;
+    return null
   }
 
   try {
-    var homePath = path.join(process.env.HOME, defaultPath);
-    fs.accessSync(homePath);
-    return homePath;
+    var homePath = path.join(process.env.HOME, defaultPath)
+    fs.accessSync(homePath)
+    return homePath
   } catch (e) {
-    return defaultPath;
+    return defaultPath
   }
 }
 
@@ -106,33 +106,33 @@ ChromeBrowser.prototype = {
     win32: getChromeExe('Chrome')
   },
   ENV_CMD: 'CHROME_BIN'
-};
-
-ChromeBrowser.$inject = ['baseBrowserDecorator', 'args'];
-
-function canaryGetOptions(url, args, parent) {
-  // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
-  var flags = args.flags || [];
-  var augmentedFlags;
-  var customFlags = '--nocrankshaft --noopt';
-
-  flags.forEach(function(flag) {
-    if (isJSFlags(flag)) {
-      augmentedFlags = sanitizeJSFlags(flag) + ' ' + customFlags;
-    }
-  });
-
-  return parent.call(this, url).concat([augmentedFlags || '--js-flags=' + customFlags]);
 }
 
-var ChromeCanaryBrowser = function(baseBrowserDecorator, args) {
-  ChromeBrowser.apply(this, arguments);
+ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
 
-  var parentOptions = this._getOptions;
-  this._getOptions = function(url) {
-    return canaryGetOptions.call(this, url, args, parentOptions);
-  };
-};
+function canaryGetOptions (url, args, parent) {
+  // disable crankshaft optimizations, as it causes lot of memory leaks (as of Chrome 23.0)
+  var flags = args.flags || []
+  var augmentedFlags
+  var customFlags = '--nocrankshaft --noopt'
+
+  flags.forEach(function (flag) {
+    if (isJSFlags(flag)) {
+      augmentedFlags = sanitizeJSFlags(flag) + ' ' + customFlags
+    }
+  })
+
+  return parent.call(this, url).concat([augmentedFlags || '--js-flags=' + customFlags])
+}
+
+var ChromeCanaryBrowser = function (baseBrowserDecorator, args) {
+  ChromeBrowser.apply(this, arguments)
+
+  var parentOptions = this._getOptions
+  this._getOptions = function (url) {
+    return canaryGetOptions.call(this, url, args, parentOptions)
+  }
+}
 
 ChromeCanaryBrowser.prototype = {
   name: 'ChromeCanary',
@@ -143,39 +143,39 @@ ChromeCanaryBrowser.prototype = {
     win32: getChromeExe('Chrome SxS')
   },
   ENV_CMD: 'CHROME_CANARY_BIN'
-};
+}
 
-ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args'];
+ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args']
 
-var DartiumBrowser = function() {
-    ChromeBrowser.apply(this, arguments);
+var DartiumBrowser = function () {
+  ChromeBrowser.apply(this, arguments)
 
-    var checkedFlag = '--checked';
-    var dartFlags = process.env.DART_FLAGS || '';
-    var flags = dartFlags.split(' ');
-    if (flags.indexOf(checkedFlag) === -1) {
-        flags.push(checkedFlag);
-        process.env.DART_FLAGS = flags.join(' ');
-    }
-};
+  var checkedFlag = '--checked'
+  var dartFlags = process.env.DART_FLAGS || ''
+  var flags = dartFlags.split(' ')
+  if (flags.indexOf(checkedFlag) === -1) {
+    flags.push(checkedFlag)
+    process.env.DART_FLAGS = flags.join(' ')
+  }
+}
 
 DartiumBrowser.prototype = {
-    name: 'Dartium',
-    DEFAULT_CMD: {},
-    ENV_CMD: 'DARTIUM_BIN'
-};
+  name: 'Dartium',
+  DEFAULT_CMD: {},
+  ENV_CMD: 'DARTIUM_BIN'
+}
 
-DartiumBrowser.$inject = ['baseBrowserDecorator', 'args'];
+DartiumBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 // PUBLISH DI MODULE
 module.exports = {
   'launcher:Chrome': ['type', ChromeBrowser],
   'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
   'launcher:Dartium': ['type', DartiumBrowser]
-};
+}
 
 module.exports.test = {
   isJSFlags: isJSFlags,
   sanitizeJSFlags: sanitizeJSFlags,
   canaryGetOptions: canaryGetOptions
-};
+}
