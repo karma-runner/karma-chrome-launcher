@@ -50,7 +50,7 @@ function getChromeExe (chromeDirName) {
   }
   var windowsChromeDirectory, i, prefix
   var suffix = '\\Google\\' + chromeDirName + '\\Application\\chrome.exe'
-  var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']]
+  var prefixes = [process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)', process.env.LOCALAPPDATA]]
 
   for (i = 0; i < prefixes.length; i++) {
     prefix = prefixes[i]
