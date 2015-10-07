@@ -44,18 +44,20 @@
   },
   "contributors": [
     "Mark Ethan Trostler <mark@zzo.com>",
+    "dignifiedquire <dignifiedquire@gmail.com>",
     "Mark Trostler <mark@zzo.com>",
     "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
-    "dignifiedquire <dignifiedquire@gmail.com>",
-    "Filipe Guerra <alias.mac@gmail.com>",
     "Aymeric Beaumet <aymeric@beaumet.me>",
-    "Julien Sanchez <julien.sanchez@lim.eu>",
+    "Filipe Guerra <alias.mac@gmail.com>",
     "Marko Vuksanovic <markovuksanovic@gmail.com>",
-    "Michał Gołębiowski <m.goleb@gmail.com>",
+    "Jeff Cross <middlefloor@gmail.com>",
     "Michał Gołębiowski <m.goleb@gmail.com>",
     "Parashuram N <code@r.nparashuram.com>",
     "Timo Tijhof <krinklemail@gmail.com>",
-    "Jeff Cross <middlefloor@gmail.com>",
-    "Joe Doyle <valdain@gmail.com>"
+    "Vincent Voyer <vincent.voyer@algolia.com>",
+    "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
+    "Michał Gołębiowski <m.goleb@gmail.com>",
+    "Joe Doyle <valdain@gmail.com>",
+    "Julien Sanchez <julien.sanchez@lim.eu>"
   ]
 }
