@@ -138,7 +138,7 @@ ChromeCanaryBrowser.prototype = {
   name: 'ChromeCanary',
 
   DEFAULT_CMD: {
-    linux: 'google-chrome-canary',
+    linux: getBin(['google-chrome-canary', 'google-chrome-unstable']),
     darwin: getChromeDarwin('/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'),
     win32: getChromeExe('Chrome SxS')
   },
