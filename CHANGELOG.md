@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.0...v0.2.1) (2015-10-07)
+
+
+### Bug Fixes
+
+* **ChromeCanary:** on Linux (archlinux), it can be named google-chrome-unstable ([28cb5b0](https://github.com/karma-runner/karma-chrome-launcher/commit/28cb5b0))
+
+
+
 <a name"0.2.0"></a>
 ## 0.2.0 (2015-06-23)
 
