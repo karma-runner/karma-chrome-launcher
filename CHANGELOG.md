@@ -1,6 +1,9 @@
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.1...v0.2.2) (2015-12-01)
 
+### Bug Fixes
+
+* chrome will ignore command line flags it does not yet know about ([426e7c3](https://github.com/karma-runner/karma-chrome-launcher/commit/426e7c3))
 
 
 
