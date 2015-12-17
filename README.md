@@ -35,6 +35,19 @@ module.exports = function(config) {
 }
 ```
 
+The `--user-data-dir` is set to a temporary directory but can be overridden on a custom launcher as shown below.
+One reason to do this is to have a permanent Chrome user data directory inside the project directory to be able to
+install plugins there (e.g. JetBrains IDE Support plugin).
+
+```js
+customLaunchers: {
+  Chrome_with_debugging: {
+    base: 'Chrome',
+    chromeDataDir: path.resolve(__dirname, '.chrome')
+  }
+}
+```
+
 You can pass list of browsers as a CLI argument too:
 
 ```bash
