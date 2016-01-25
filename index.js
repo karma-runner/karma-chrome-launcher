@@ -21,6 +21,7 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
   baseBrowserDecorator(this)
 
   var flags = args.flags || []
+  var userDataDir = args.chromeDataDir || this._tempDir
 
   this._getOptions = function (url) {
     // Chrome CLI options
@@ -32,7 +33,7 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
     })
 
     return [
-      '--user-data-dir=' + this._tempDir,
+      '--user-data-dir=' + userDataDir,
       '--no-default-browser-check',
       '--no-first-run',
       '--disable-default-apps',
