@@ -1,3 +1,13 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.1...v0.2.3) (2016-03-22)
+
+
+### Features
+
+* **config:** Allow --user-data-dir to be set in launcher properties ([2c0b7f4](https://github.com/karma-runner/karma-chrome-launcher/commit/2c0b7f4))
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.1...v0.2.2) (2015-12-01)
 
