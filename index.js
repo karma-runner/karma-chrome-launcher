@@ -66,6 +66,54 @@ function getChromeExe (chromeDirName) {
   return windowsChromeDirectory
 }
 
+var ChromiumBrowser = function (baseBrowserDecorator, args) {
+  baseBrowserDecorator(this)
+
+  var flags = args.flags || []
+
+  this._getOptions = function (url) {
+    // Chromium CLI options
+    // http://peter.sh/experiments/chromium-command-line-switches/
+    flags.forEach(function (flag, i) {
+      if (isJSFlags(flag)) {
+        flags[i] = sanitizeJSFlags(flag)
+      }
+    })
+
+    return [
+      '--user-data-dir=' + this._tempDir,
+      '--no-default-browser-check',
+      '--no-first-run',
+      '--disable-default-apps',
+      '--disable-popup-blocking',
+      '--disable-translate',
+      '--disable-background-timer-throttling'
+    ].concat(flags, [url])
+  }
+}
+
+// Return location of Chromium's chrome.exe file.
+function getChromiumExe (chromeDirName) {
+  // Only run these checks on win32
+  if (process.platform !== 'win32') {
+    return null
+  }
+  var windowsChromiumDirectory, i, prefix
+  var suffix = '\\Chromium\\Application\\chrome.exe'
+  var prefixes = [process.env.LOCALAPPDATA, process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']]
+
+  for (i = 0; i < prefixes.length; i++) {
+    prefix = prefixes[i]
+    try {
+      windowsChromiumDirectory = path.join(prefix, suffix)
+      fsAccess.sync(windowsChromiumDirectory)
+      return windowsChromiumDirectory
+    } catch (e) {}
+  }
+
+  return windowsChromiumDirectory
+}
+
 function getBin (commands) {
   // Don't run these checks on win32
   if (process.platform !== 'linux') {
@@ -103,7 +151,7 @@ ChromeBrowser.prototype = {
   DEFAULT_CMD: {
     // Try chromium-browser before chromium to avoid conflict with the legacy
     // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
-    linux: getBin(['chromium-browser', 'chromium', 'google-chrome', 'google-chrome-stable']),
+    linux: getBin(['google-chrome', 'google-chrome-stable']),
     darwin: getChromeDarwin('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
     win32: getChromeExe('Chrome')
   },
@@ -149,6 +197,21 @@ ChromeCanaryBrowser.prototype = {
 
 ChromeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args']
 
+ChromiumBrowser.prototype = {
+  name: 'Chromium',
+
+  DEFAULT_CMD: {
+    // Try chromium-browser before chromium to avoid conflict with the legacy
+    // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
+    linux: getBin(['chromium-browser', 'chromium']),
+    darwin: '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    win32: getChromiumExe()
+  },
+  ENV_CMD: 'CHROMIUM_BIN'
+}
+
+ChromiumBrowser.$inject = ['baseBrowserDecorator', 'args']
+
 var DartiumBrowser = function () {
   ChromeBrowser.apply(this, arguments)
 
@@ -173,6 +236,7 @@ DartiumBrowser.$inject = ['baseBrowserDecorator', 'args']
 module.exports = {
   'launcher:Chrome': ['type', ChromeBrowser],
   'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
+  'launcher:Chromium': ['type', ChromiumBrowser],
   'launcher:Dartium': ['type', DartiumBrowser]
 }
 
