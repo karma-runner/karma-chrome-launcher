@@ -1,3 +1,9 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.3...v1.0.1) (2016-05-02)
+
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.1...v0.2.3) (2016-03-22)
 
