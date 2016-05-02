@@ -1,6 +1,6 @@
 {
   "name": "karma-chrome-launcher",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "A Karma plugin. Launcher for Chrome and Chrome Canary.",
   "main": "index.js",
   "scripts": {
@@ -32,12 +32,12 @@
     "grunt-conventional-changelog": "^5.0.0",
     "grunt-conventional-github-releaser": "^0.5.0",
     "grunt-eslint": "^17.2.0",
-    "grunt-karma": "^0.12.1",
+    "grunt-karma": "1.x || ^0.12.1",
     "grunt-npm": "^0.0.2",
     "grunt-simple-mocha": "^0.4.0",
     "jasmine-node": "^1.14.5",
-    "karma": "^0.13.10",
-    "karma-mocha": "^0.2.0",
+    "karma": "1.x || ^0.13.10",
+    "karma-mocha": "1.x || ^0.2.0",
     "load-grunt-tasks": "^3.2.0",
     "mocha": "^2.3.3",
     "sinon": "^1.17.1"
