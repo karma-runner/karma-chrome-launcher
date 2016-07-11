@@ -39,7 +39,8 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
       '--disable-default-apps',
       '--disable-popup-blocking',
       '--disable-translate',
-      '--disable-background-timer-throttling'
+      '--disable-background-timer-throttling',
+      '--disable-device-discovery-notifications'
     ].concat(flags, [url])
   }
 }
