@@ -1,3 +1,13 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v1.0.1...v2.0.0) (2016-08-18)
+
+
+### Features
+
+* Chromium support for Linux, Darwin and Windows ([33e8d82](https://github.com/karma-runner/karma-chrome-launcher/commit/33e8d82))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v0.2.3...v1.0.1) (2016-05-02)
 
