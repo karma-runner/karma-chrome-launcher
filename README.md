@@ -5,7 +5,7 @@
 
 [![Build Status](https://img.shields.io/travis/karma-runner/karma-chrome-launcher/master.svg?style=flat-square)](https://travis-ci.org/karma-runner/karma-chrome-launcher) [![Dependency Status](https://img.shields.io/david/karma-runner/karma-chrome-launcher.svg?style=flat-square)](https://david-dm.org/karma-runner/karma-chrome-launcher) [![devDependency Status](https://img.shields.io/david/dev/karma-runner/karma-chrome-launcher.svg?style=flat-square)](https://david-dm.org/karma-runner/karma-chrome-launcher#info=devDependencies)
 
-> Launcher for Google Chrome and Google Chrome Canary.
+> Launcher for Google Chrome, Google Chrome Canary and Google Chromium.
 
 ## Installation
 
@@ -22,7 +22,7 @@ $ npm install karma-chrome-launcher --save-dev
 // karma.conf.js
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome', 'Chrome_without_security'],
+    browsers: ['Chrome', 'Chrome_without_security'], // You may use 'ChromeCanary' or 'Chromium' as well
 
     // you can define custom flags
     customLaunchers: {
