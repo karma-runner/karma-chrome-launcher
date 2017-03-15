@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+
 var expect = require('chai').expect
 var sinon = require('sinon')
 
