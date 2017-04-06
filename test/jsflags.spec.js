@@ -53,3 +53,20 @@ describe('canaryGetOptions', function () {
     ])
   })
 })
+
+describe('headlessGetOptions', function () {
+  var headlessGetOptions = launcher.test.headlessGetOptions
+
+  it('should return the headless flags', function () {
+    var parent = sinon.stub().returns(['-incognito'])
+    var context = {}
+    var url = 'http://localhost:9876'
+    var args = {}
+    expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
+      '-incognito',
+      '--headless',
+      '--disable-gpu',
+      '--remote-debugging-port=9222'
+    ])
+  })
+})
