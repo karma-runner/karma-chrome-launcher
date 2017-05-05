@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.1.0...v2.1.1) (2017-05-05)
+
+
+### Bug Fixes
+
+* add disable-renderer-backgrounding flag ([6bfc170](https://github.com/karma-runner/karma-chrome-launcher/commit/6bfc170)), closes [#123](https://github.com/karma-runner/karma-chrome-launcher/issues/123)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.0.0...v2.1.0) (2017-05-02)
 
