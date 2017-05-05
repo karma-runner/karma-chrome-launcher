@@ -40,6 +40,10 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
       '--disable-popup-blocking',
       '--disable-translate',
       '--disable-background-timer-throttling',
+      // on macOS, disable-background-timer-throttling is not enough
+      // and we need disable-renderer-backgrounding too
+      // see https://github.com/karma-runner/karma-chrome-launcher/issues/123
+      '--disable-renderer-backgrounding',
       '--disable-device-discovery-notifications'
     ].concat(flags, [url])
   }
