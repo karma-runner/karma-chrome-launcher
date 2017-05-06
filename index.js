@@ -181,8 +181,6 @@ ChromeHeadlessBrowser.prototype = {
   name: 'ChromeHeadless',
 
   DEFAULT_CMD: {
-    // Try chromium-browser before chromium to avoid conflict with the legacy
-    // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
     linux: getBin(['google-chrome', 'google-chrome-stable']),
     darwin: getChromeDarwin('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
     win32: getChromeExe('Chrome')
