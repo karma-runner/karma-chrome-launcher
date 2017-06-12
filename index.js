@@ -264,6 +264,28 @@ ChromiumBrowser.prototype = {
 
 ChromiumBrowser.$inject = ['baseBrowserDecorator', 'args']
 
+var ChromiumHeadlessBrowser = function (baseBrowserDecorator, args) {
+  ChromiumBrowser.apply(this, arguments)
+
+  var parentOptions = this._getOptions
+  this._getOptions = function (url) {
+    return headlessGetOptions.call(this, url, args, parentOptions)
+  }
+}
+
+ChromiumHeadlessBrowser.prototype = {
+  name: 'ChromiumHeadless',
+
+  DEFAULT_CMD: {
+    // Try chromium-browser before chromium to avoid conflict with the legacy
+    // chromium-bsu package previously known as 'chromium' in Debian and Ubuntu.
+    linux: getBin(['chromium-browser', 'chromium']),
+    darwin: '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    win32: getChromiumExe()
+  },
+  ENV_CMD: 'CHROMIUM_BIN'
+}
+
 var DartiumBrowser = function () {
   ChromeBrowser.apply(this, arguments)
 
@@ -291,6 +313,7 @@ module.exports = {
   'launcher:ChromeCanary': ['type', ChromeCanaryBrowser],
   'launcher:ChromeCanaryHeadless': ['type', ChromeCanaryHeadlessBrowser],
   'launcher:Chromium': ['type', ChromiumBrowser],
+  'launcher:ChromiumHeadless': ['type', ChromiumHeadlessBrowser],
   'launcher:Dartium': ['type', DartiumBrowser]
 }
 
