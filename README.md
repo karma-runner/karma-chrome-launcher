@@ -54,6 +54,32 @@ You can pass list of browsers as a CLI argument too:
 $ karma start --browsers Chrome,Chrome_without_security
 ```
 
+## Headless Chrome with Puppeteer
+
+Chrome team made [Puppeteer](https://github.com/GoogleChrome/puppeteer). It will automatically install Chromium for all
+platforms, so you can easily use it within your CI. Everything that you need, it's to install package and update your
+Karma config.
+
+```bash
+$ npm install puppeteer --save-dev
+```
+
+```js
+// karma.conf.js
+
+const ChromiumRevision = require('puppeteer/package.json').puppeteer.chromium_revision
+const Downloader = require('puppeteer/utils/ChromiumDownloader')
+const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), revision)
+
+process.env.CHROME_BIN = revisionInfo.executablePath
+
+module.exports = function(config) {
+  config.set({
+    browsers: ['ChromeHeadless']
+  })
+}
+```
+
 ### Available browsers
 
 - Chrome
