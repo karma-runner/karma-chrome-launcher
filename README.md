@@ -69,7 +69,7 @@ $ npm install puppeteer --save-dev
 
 const ChromiumRevision = require('puppeteer/package.json').puppeteer.chromium_revision
 const Downloader = require('puppeteer/utils/ChromiumDownloader')
-const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), revision)
+const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), ChromiumRevision)
 
 process.env.CHROME_BIN = revisionInfo.executablePath
 
