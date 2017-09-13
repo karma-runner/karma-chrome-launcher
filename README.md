@@ -71,7 +71,7 @@ const ChromiumRevision = require('puppeteer/package.json').puppeteer.chromium_re
 const Downloader = require('puppeteer/utils/ChromiumDownloader')
 const revisionInfo = Downloader.revisionInfo(Downloader.currentPlatform(), ChromiumRevision)
 
-process.env.CHROMIUM_BIN = revisionInfo.executablePath
+process.env.CHROME_BIN = revisionInfo.executablePath
 
 module.exports = function(config) {
   config.set({
