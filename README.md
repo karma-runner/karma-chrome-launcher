@@ -75,7 +75,7 @@ process.env.CHROMIUM_BIN = revisionInfo.executablePath
 
 module.exports = function(config) {
   config.set({
-    browsers: ['ChromiumHeadless']
+    browsers: ['ChromeHeadless']
   })
 }
 ```
