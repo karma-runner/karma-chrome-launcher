@@ -82,6 +82,7 @@ module.exports = function(config) {
 - Chromium
 - ChromeHeadless (only on Chrome >= 59)
 - ChromeCanaryHeadless (only on Chrome >= 59)
+- ChromiumHeadless
 - Dartium
 
 ----
