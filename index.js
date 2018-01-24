@@ -165,7 +165,12 @@ ChromeBrowser.prototype = {
 ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 function headlessGetOptions (url, args, parent) {
-  return parent.call(this, url, args).concat(['--headless', '--disable-gpu', '--remote-debugging-port=9222'])
+  return parent.call(this, url, args).concat([
+    '--headless',
+    '--disable-gpu',
+    '--remote-debugging-port=9222',
+    '--no-user-gesture-required'
+  ])
 }
 
 var ChromeHeadlessBrowser = function (baseBrowserDecorator, args) {
