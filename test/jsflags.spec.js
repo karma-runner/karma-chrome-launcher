@@ -69,4 +69,19 @@ describe('headlessGetOptions', function () {
       '--remote-debugging-port=9222'
     ])
   })
+
+  it('should not overwrite custom remote-debugging-port', function () {
+    var parent = sinon.stub().returns(
+      ['-incognito', '--remote-debugging-port=9333']
+    )
+    var context = {}
+    var url = 'http://localhost:9876'
+    var args = {}
+    expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
+      '-incognito',
+      '--remote-debugging-port=9333',
+      '--headless',
+      '--disable-gpu'
+    ])
+  })
 })
