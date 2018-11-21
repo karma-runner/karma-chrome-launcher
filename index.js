@@ -1,4 +1,4 @@
-var fsAccess = require('fs-access')
+var fs = require('fs')
 var path = require('path')
 var which = require('which')
 
@@ -63,7 +63,7 @@ function getChromeExe (chromeDirName) {
     prefix = prefixes[i]
     try {
       windowsChromeDirectory = path.join(prefix, suffix)
-      fsAccess.sync(windowsChromeDirectory)
+      fs.accessSync(windowsChromeDirectory)
       return windowsChromeDirectory
     } catch (e) {}
   }
@@ -112,7 +112,7 @@ function getChromiumExe (chromeDirName) {
     prefix = prefixes[i]
     try {
       windowsChromiumDirectory = path.join(prefix, suffix)
-      fsAccess.sync(windowsChromiumDirectory)
+      fs.accessSync(windowsChromiumDirectory)
       return windowsChromiumDirectory
     } catch (e) {}
   }
@@ -144,7 +144,7 @@ function getChromeDarwin (defaultPath) {
 
   try {
     var homePath = path.join(process.env.HOME, defaultPath)
-    fsAccess.sync(homePath)
+    fs.accessSync(homePath)
     return homePath
   } catch (e) {
     return defaultPath

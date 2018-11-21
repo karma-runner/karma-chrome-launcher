@@ -46,7 +46,7 @@ describe('canaryGetOptions', function () {
     var parent = sinon.stub().returns(['-incognito'])
     var context = {}
     var url = 'http://localhost:9876'
-    var args = {flags: ['--js-flags="--expose-gc"']}
+    var args = { flags: ['--js-flags="--expose-gc"'] }
     expect(canaryGetOptions.call(context, url, args, parent)).to.be.eql([
       '-incognito',
       '--js-flags=--expose-gc --nocrankshaft --noopt'
