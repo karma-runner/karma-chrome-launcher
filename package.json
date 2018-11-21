@@ -38,7 +38,7 @@
     "load-grunt-tasks": "^3.2.0",
     "mocha": "^5.2.0",
     "sinon": "^7.1.1",
-    "standard": "^10.0.0"
+    "standard": "^12.0.0"
   },
   "contributors": [
     "Mark Ethan Trostler <mark@zzo.com>",
