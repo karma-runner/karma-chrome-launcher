@@ -34,6 +34,8 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
 
     return [
       '--user-data-dir=' + userDataDir,
+      // https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation
+      '--enable-automation',
       '--no-default-browser-check',
       '--no-first-run',
       '--disable-default-apps',
