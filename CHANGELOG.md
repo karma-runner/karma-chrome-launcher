@@ -1,3 +1,12 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.2.0...v3.1.0) (2019-08-02)
+
+
+### Features
+
+* add --disable-dev-shm-usage flag to headless ([137005d](https://github.com/karma-runner/karma-chrome-launcher/commit/137005d))
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v2.2.0...v3.0.0) (2019-07-12)
 
