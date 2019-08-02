@@ -66,6 +66,7 @@ describe('headlessGetOptions', function () {
       '-incognito',
       '--headless',
       '--disable-gpu',
+      '--disable-dev-shm-usage',
       '--remote-debugging-port=9222'
     ])
   })
@@ -81,7 +82,8 @@ describe('headlessGetOptions', function () {
       '-incognito',
       '--remote-debugging-port=9333',
       '--headless',
-      '--disable-gpu'
+      '--disable-gpu',
+      '--disable-dev-shm-usage'
     ])
   })
 })
