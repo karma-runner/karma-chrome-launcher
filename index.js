@@ -332,8 +332,8 @@ module.exports = {
 }
 
 module.exports.test = {
-  isJSFlags: isJSFlags,
-  sanitizeJSFlags: sanitizeJSFlags,
-  headlessGetOptions: headlessGetOptions,
-  canaryGetOptions: canaryGetOptions
+  isJSFlags,
+  sanitizeJSFlags,
+  headlessGetOptions,
+  canaryGetOptions
 }
