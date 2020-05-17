@@ -33,6 +33,7 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
     })
 
     return [
+      '--disable-ipc-flooding-protection',
       '--user-data-dir=' + userDataDir,
       // https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation
       '--enable-automation',
@@ -89,6 +90,7 @@ var ChromiumBrowser = function (baseBrowserDecorator, args) {
     })
 
     return [
+      '--disable-ipc-flooding-protection',
       '--user-data-dir=' + userDataDir,
       '--no-default-browser-check',
       '--no-first-run',
