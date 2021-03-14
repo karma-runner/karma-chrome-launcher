@@ -54,6 +54,12 @@ You can pass list of browsers as a CLI argument too:
 $ karma start --browsers Chrome,Chrome_without_security
 ```
 
+## Hanging tests
+
+When interactive (i.e. non-headless) Chrome is used, tests may appear to hang if the browser window is hidden or minimized, due to Chrome throttling tabs that are not in the foreground.
+
+To work around the issue for the scenario where the browser window is hidden, use a custom launcher and pass the `--disable-backgrounding-occluded-windows` flag. There is currently no workaround for the case where the browser is minimized. See [#228](https://github.com/karma-runner/karma-chrome-launcher/issues/228) for more information.
+
 ## Headless Chromium with Puppeteer
 
 The Chrome DevTools team created [Puppeteer](https://github.com/GoogleChrome/puppeteer) - it will automatically install Chromium for all
