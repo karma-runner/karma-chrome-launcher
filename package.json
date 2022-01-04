@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard",
+    "integration-test": "npx karma start examples/simple/karma.conf.js --single-run --browsers ChromeHeadless",
+    "unit-test": "npx mocha test/*",
     "pretest": "npm run lint",
-    "test": "grunt test"
+    "test": "npm run integration-test && npm run unit-test",
+    "update-contributors": "grunt contributors",
+    "release": "npm run update-contributors && semantic-release"
   },
   "repository": {
     "type": "git",
@@ -23,20 +27,15 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "chai": "^4.2.0",
     "grunt": "^1.0.1",
-    "grunt-auto-release": "^0.0.7",
-    "grunt-bump": "^0.8.0",
-    "grunt-conventional-changelog": "^6.1.0",
-    "grunt-conventional-github-releaser": "^1.0.0",
-    "grunt-karma": "^3.0.0",
     "grunt-npm": "^0.0.2",
-    "grunt-simple-mocha": "^0.4.0",
-    "jasmine-node": "^3.0.0",
     "karma": "^4.1.0",
     "karma-mocha": "1.x || ^0.2.0",
-    "load-grunt-tasks": "^4.0.0",
     "mocha": "^5.2.0",
+    "semantic-release": "^17.0.1",
     "sinon": "^7.1.1",
     "standard": "^12.0.0"
   },
