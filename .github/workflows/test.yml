@@ -24,6 +24,10 @@ jobs:
           cache: npm
       - uses: browser-actions/setup-chrome@latest
       - run: npm ci
+      - run: |
+          npm run commitlint -- \
+          --verbose \
+          --from `git merge-base origin/master $GITHUB_SHA`
       - run: npm run lint
       - run: npm run test
   windows:

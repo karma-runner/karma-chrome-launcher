@@ -10,7 +10,8 @@
     "pretest": "npm run lint",
     "test": "npm run integration-test && npm run unit-test",
     "update-contributors": "grunt contributors",
-    "release": "npm run update-contributors && semantic-release"
+    "release": "npm run update-contributors && semantic-release",
+    "commitlint": "commitlint"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-angular": "^12.1.4",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "chai": "^4.2.0",
