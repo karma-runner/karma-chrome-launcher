@@ -6,6 +6,7 @@ module.exports = {
     '@semantic-release/npm'
   ],
   prepare: [
+    './tools/update-contributors',
     '@semantic-release/changelog',
     '@semantic-release/git',
     '@semantic-release/npm'
