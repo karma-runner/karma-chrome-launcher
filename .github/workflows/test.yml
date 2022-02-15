@@ -22,7 +22,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
-      - uses: browser-actions/setup-chrome@latest
       - run: npm ci
       - run: |
           npm run commitlint -- \
