@@ -7,7 +7,7 @@
     "lint": "standard",
     "integration-test": "npx karma start examples/simple/karma.conf.js --single-run --browsers ChromeHeadless",
     "unit-test": "npx mocha test/*",
-    "test": "npm run integration-test && npm run unit-test",
+    "test": "npm run unit-test && npm run integration-test",
     "release": "semantic-release",
     "commitlint": "commitlint"
   },
