@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v3.1.0...v3.1.1) (2022-03-09)
+
+
+### Bug Fixes
+
+* artificially trigger a release ([83fdc3c](https://github.com/karma-runner/karma-chrome-launcher/commit/83fdc3ca5666374c677408ed0589e66b1124bec4))
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v3.0.0...v3.1.0) (2019-08-13)
 
@@ -201,4 +208,3 @@
 #### Features
 
 * allow passing custom flags ([4ebc7694](https://github.com/karma-runner/karma-chrome-launcher/commit/4ebc7694))
-

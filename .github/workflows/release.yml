@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  main:
+    name: Test, Tag Commit and Release to NPM
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.KARMARUNNERBOT_GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v2
+        with:
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run release
