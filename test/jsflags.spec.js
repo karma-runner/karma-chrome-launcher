@@ -65,7 +65,6 @@ describe('headlessGetOptions', function () {
     expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
       '-incognito',
       '--headless',
-      '--disable-gpu',
       '--disable-dev-shm-usage',
       '--remote-debugging-port=9222'
     ])
@@ -82,7 +81,6 @@ describe('headlessGetOptions', function () {
       '-incognito',
       '--remote-debugging-port=9333',
       '--headless',
-      '--disable-gpu',
       '--disable-dev-shm-usage'
     ])
   })
