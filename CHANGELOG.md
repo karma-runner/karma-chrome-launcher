@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/karma-runner/karma-chrome-launcher/compare/v3.1.1...v3.2.0) (2023-04-20)
+
+
+### Features
+
+* add process.env.ProgramW6432 as root location for binaries ([12a73db](https://github.com/karma-runner/karma-chrome-launcher/commit/12a73dba261c78fdba4aff4dbb741ac87adfed01))
+
 ## [3.1.1](https://github.com/karma-runner/karma-chrome-launcher/compare/v3.1.0...v3.1.1) (2022-03-09)
 
 
