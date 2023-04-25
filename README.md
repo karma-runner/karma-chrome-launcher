@@ -54,12 +54,8 @@ You can pass list of browsers as a CLI argument too:
 $ karma start --browsers Chrome,Chrome_without_security
 ```
 
-## Headless Chromium with Puppeteer
-
-The Chrome DevTools team created [Puppeteer](https://github.com/GoogleChrome/puppeteer) - it will automatically install Chromium for all
-platforms and contains everything you need to run it from within your CI.
-
-### Available Browsers
+## Available Browsers
+ *Note: Headless mode requires a browser version >= 59*
 *Note: Headless mode requires a browser version >= 59*
 
 - Chrome (CHROME_BIN)
@@ -70,14 +66,16 @@ platforms and contains everything you need to run it from within your CI.
 - ChromeCanaryHeadless (CHROME_CANARY_BIN)
 - Dartium (DARTIUM_BIN)
 
-#### Usage
-```bash
-$ npm i -D puppeteer karma-chrome-launcher
-```
+## Headless Chromium
+
+To run karma with headless version of Chrome, Chromium and Chrome Canary you can use:
+
+- ChromeHeadless
+- ChromiumHeadless
+- ChromeCanaryHeadless
 
 ```js
 // karma.conf.js
-process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 module.exports = function(config) {
   config.set({
