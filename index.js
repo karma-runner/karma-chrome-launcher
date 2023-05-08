@@ -169,7 +169,6 @@ ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
 function headlessGetOptions (url, args, parent) {
   var mergedArgs = parent.call(this, url, args).concat([
     '--headless',
-    '--disable-gpu',
     '--disable-dev-shm-usage'
   ])
 
