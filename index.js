@@ -168,7 +168,6 @@ ChromeBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 function headlessGetOptions (url, args, parent) {
   var mergedArgs = parent.call(this, url, args).concat([
-    '--headless',
     '--disable-gpu',
     '--disable-dev-shm-usage'
   ])
@@ -177,9 +176,17 @@ function headlessGetOptions (url, args, parent) {
     return flag.indexOf('--remote-debugging-port=') !== -1
   }
 
-  return mergedArgs.some(isRemoteDebuggingFlag)
+  mergedArgs = mergedArgs.some(isRemoteDebuggingFlag)
     ? mergedArgs
     : mergedArgs.concat(['--remote-debugging-port=9222'])
+
+  var isHeadlessFlag = function (flag) {
+    return flag.indexOf('--headless=') !== -1
+  }
+
+  return mergedArgs.some(isHeadlessFlag)
+    ? mergedArgs
+    : mergedArgs.concat(['--headless'])
 }
 
 var ChromeHeadlessBrowser = function (baseBrowserDecorator, args) {
