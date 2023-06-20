@@ -64,10 +64,10 @@ describe('headlessGetOptions', function () {
     var args = {}
     expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
       '-incognito',
-      '--headless',
       '--disable-gpu',
       '--disable-dev-shm-usage',
-      '--remote-debugging-port=9222'
+      '--remote-debugging-port=9222',
+      '--headless'
     ])
   })
 
@@ -81,9 +81,25 @@ describe('headlessGetOptions', function () {
     expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
       '-incognito',
       '--remote-debugging-port=9333',
-      '--headless',
       '--disable-gpu',
-      '--disable-dev-shm-usage'
+      '--disable-dev-shm-usage',
+      '--headless'
+    ])
+  })
+
+  it('should not overwrite custom headless flag', function () {
+    var parent = sinon.stub().returns(
+      ['-incognito', '--headless=new']
+    )
+    var context = {}
+    var url = 'http://localhost:9876'
+    var args = {}
+    expect(headlessGetOptions.call(context, url, args, parent)).to.be.eql([
+      '-incognito',
+      '--headless=new',
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+      '--remote-debugging-port=9222'
     ])
   })
 })
