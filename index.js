@@ -17,6 +17,37 @@ function sanitizeJSFlags (flag) {
   return flag.replace(startExp, '--js-flags=').replace(endExp, '')
 }
 
+function getOptions (userDataDir, flags, url) {
+  // These are all the default options
+  return [
+    '--user-data-dir=' + userDataDir,
+
+    // Disable chrome features
+    // https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation
+    '--enable-automation',
+    '--no-default-browser-check',
+    '--no-first-run',
+    '--disable-client-side-phishing-detection',
+    '--disable-default-apps',
+    '--disable-popup-blocking',
+    '--disable-features=Translate',
+    '--disable-background-timer-throttling',
+    '--disable-notifications',
+    '--mute-audio',
+
+    // Disable password prompt dialogs
+    // see: https://github.com/GoogleChrome/chrome-launcher/blob/main/docs/chrome-flags-for-tools.md#chromium-annoyances
+    '--password-store=basic',
+    '--use-mock-keychain',
+
+    // on macOS, disable-background-timer-throttling is not enough
+    // and we need disable-renderer-backgrounding too
+    // see https://github.com/karma-runner/karma-chrome-launcher/issues/123
+    '--disable-renderer-backgrounding',
+    '--disable-device-discovery-notifications'
+  ].concat(flags, [url])
+}
+
 var ChromeBrowser = function (baseBrowserDecorator, args) {
   baseBrowserDecorator(this)
 
@@ -32,22 +63,7 @@ var ChromeBrowser = function (baseBrowserDecorator, args) {
       }
     })
 
-    return [
-      '--user-data-dir=' + userDataDir,
-      // https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation
-      '--enable-automation',
-      '--no-default-browser-check',
-      '--no-first-run',
-      '--disable-default-apps',
-      '--disable-popup-blocking',
-      '--disable-translate',
-      '--disable-background-timer-throttling',
-      // on macOS, disable-background-timer-throttling is not enough
-      // and we need disable-renderer-backgrounding too
-      // see https://github.com/karma-runner/karma-chrome-launcher/issues/123
-      '--disable-renderer-backgrounding',
-      '--disable-device-discovery-notifications'
-    ].concat(flags, [url])
+    return getOptions(userDataDir, flags, url)
   }
 }
 
@@ -88,15 +104,7 @@ var ChromiumBrowser = function (baseBrowserDecorator, args) {
       }
     })
 
-    return [
-      '--user-data-dir=' + userDataDir,
-      '--no-default-browser-check',
-      '--no-first-run',
-      '--disable-default-apps',
-      '--disable-popup-blocking',
-      '--disable-translate',
-      '--disable-background-timer-throttling'
-    ].concat(flags, [url])
+    return getOptions(userDataDir, flags, url)
   }
 }
 
